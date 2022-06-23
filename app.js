@@ -19,8 +19,10 @@ function middleware(req, res, next) {
             output[pair[0]] = pair.splice(1).join('=');
         });
         let jsonData = JSON.stringify(output, null, 4);
-        console.log(jsonData.islogin);
-        if (jsonData.islogin) {
+        let objData = JSON.parse(jsonData);
+        console.log(jsonData);
+
+        if (objData.islogin) {
             next();
         }else{
             res.redirect('/login');
