@@ -5,7 +5,6 @@ var path = require("path");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-// const auth = require('./auth');
 
 //setup public folder
 app.use('/static',express.static(path.join(__dirname, 'public')));
