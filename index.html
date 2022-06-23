@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id"
         content="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com">
-
-    <title>Document</title>
+    <meta property="og:image" content="https://lofi.trug.cf/images/card.jpg">
+    <title>From 12A with love</title>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
     <!-- bootstrap 5 -->
@@ -122,6 +122,7 @@
             document.getElementById('gSignIn').style.display = 'none';
             document.getElementById('name').innerHTML = localStorage.getItem('name');
             document.getElementById('picture').src = localStorage.getItem('picture');
+            document.getElementById('signOut').style.display = 'block';
         }
 
         //count number of day from now to 7/7/2022
