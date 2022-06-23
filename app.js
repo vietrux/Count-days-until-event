@@ -19,6 +19,6 @@ io.on('connection', (socket) => {
     io.emit('count', io.engine.clientsCount);
 });
 
-server.listen(3000, () => {
+server.listen(process.env.PORT, () => {
     console.log('listening on *:3000');
 });
