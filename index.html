@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Hello, <span id="name"></span>!</h1>
-                    <img id="picture" class="profile-pic" src="https://profile.trug.cf/img/avt.jpg" alt="">
+                    <img id="picture" class="profile-pic" src="" alt="">
                     <p style="font-size: 20px;">
                         There are <strong><span style="font-size: 32px;" id="days"></span> &nbsp;DAY &nbsp;- &nbsp;<span
                                 style="font-size: 32px;" id="hours"></span> &nbsp;HOURS &nbsp;- &nbsp;<span
@@ -84,7 +84,8 @@
                         School Graduation Exam.
                     </p>
                     <!-- button -->
-                    <a id="signOut" class="btn btn-primary" href="#" onclick="signOut();">Sign out</a>
+                    <a id="darmode" class="btn btn-danger" onclick="change_mode(true);">DarkMode</a>
+                    <a id="signOut" class="btn btn-primary" onclick="signOut();">Sign out</a>
                 </div>
             </div>
         </div>
@@ -97,70 +98,96 @@
                     </ul>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <iframe id="video" width="100%" height="200%"
+                        src="https://www.youtube-nocookie.com/embed/videoseries?controls=0&amp;list=PLr5OsF2umnikUo3EbRFnm2wJpl54mleTM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        listanimal = ['Alligator', 'Anteater', 'Armadillo', 'Auroch', 'Axolotl', 'Badger', 'Bat', 'Beaver', 'Buffalo', 'Camel', 'Capybara', 'Chameleon', 'Cheetah', 'Chinchilla', 'Chipmunk', 'Chupacabra', 'Cormorant', 'Coyote', 'Crow', 'Dingo', 'Dinosaur', 'Dolphin', 'Duck', 'Elephant', 'Ferret', 'Fox', 'Frog', 'Giraffe', 'Gopher', 'Grizzly', 'Hedgehog', 'Hippo', 'Hyena', 'Ibex', 'Ifrit', 'Iguana', 'Jackal', 'Kangaroo', 'Koala', 'Kraken', 'Lemur', 'Leopard', 'Liger', 'Llama', 'Manatee', 'Mink', 'Monkey', 'Moose', 'Narwhal', 'Orangutan', 'Otter', 'Panda', 'Penguin', 'Platypus', 'Pumpkin', 'Python', 'Quagga', 'Rabbit', 'Raccoon', 'Rhino', 'Sheep', 'Shrew', 'Skunk', 'Squirrel', 'Tiger', 'Turtle', 'Walrus', 'Wolf', 'Wolverine', 'Wombat'];
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+            listanimal = ['Alligator', 'Anteater', 'Armadillo', 'Auroch', 'Axolotl', 'Badger', 'Bat', 'Beaver', 'Buffalo', 'Camel', 'Capybara', 'Chameleon', 'Cheetah', 'Chinchilla', 'Chipmunk', 'Chupacabra', 'Cormorant', 'Coyote', 'Crow', 'Dingo', 'Dinosaur', 'Dolphin', 'Duck', 'Elephant', 'Ferret', 'Fox', 'Frog', 'Giraffe', 'Gopher', 'Grizzly', 'Hedgehog', 'Hippo', 'Hyena', 'Ibex', 'Ifrit', 'Iguana', 'Jackal', 'Kangaroo', 'Koala', 'Kraken', 'Lemur', 'Leopard', 'Liger', 'Llama', 'Manatee', 'Mink', 'Monkey', 'Moose', 'Narwhal', 'Orangutan', 'Otter', 'Panda', 'Penguin', 'Platypus', 'Pumpkin', 'Python', 'Quagga', 'Rabbit', 'Raccoon', 'Rhino', 'Sheep', 'Shrew', 'Skunk', 'Squirrel', 'Tiger', 'Turtle', 'Walrus', 'Wolf', 'Wolverine', 'Wombat'];
 
-        socket.on('connect', function () {
-            console.log('connected');
-        });
-        document.getElementById('name').innerHTML = localStorage.getItem('name');
-        document.getElementById('picture').src = localStorage.getItem('picture');
+            socket.on('connect', function () {
+                console.log('connected');
+            });
+            document.getElementById('name').innerHTML = localStorage.getItem('name');
+            document.getElementById('picture').src = localStorage.getItem('picture');
 
-        //count number of day from now to 7/7/2022
-        var countDownDate = new Date("Jul 07, 2022 00:00:00").getTime();
-        var x = setInterval(function () {
-            var now = new Date().getTime();
-            var distance = countDownDate - now;
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("demo").innerHTML = "Good Luck! 12A ";
-            }
-        }, 1000);
+            //count number of day from now to 7/7/2022
+            var countDownDate = new Date("Jul 07, 2022 00:00:00").getTime();
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "Good Luck! 12A ";
+                }
+            }, 1000);
 
-        //socket
-        socket.on('count', function (data) {
-            document.getElementById('avtlist').innerHTML = "";
-            data = data - 1;
-            console.log(data);
-            if (data < 1) {
-                document.getElementById('userCount').innerHTML = 'There is only you!';
-            } else {
-                document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends online now!';
-            }
-            if (data > 0 && data <= 4) {
-                for (var i = 0; i < data; i++) {
-                    document.getElementById('avtlist').innerHTML += '<li><img src="./static/images/' + listanimal[Math.floor(Math.random() * listanimal.length)] + '.png" height="60px" width="60px" /></li>';
+            //socket
+            socket.on('count', function (data) {
+                document.getElementById('avtlist').innerHTML = "";
+                data = data - 1;
+                console.log(data);
+                if (data < 1) {
+                    document.getElementById('userCount').innerHTML = 'There is only you!';
+                } else {
+                    document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends online now!';
+                }
+                if (data > 0 && data <= 4) {
+                    for (var i = 0; i < data; i++) {
+                        document.getElementById('avtlist').innerHTML += '<li><img src="./static/images/' + listanimal[Math.floor(Math.random() * listanimal.length)] + '.png" height="60px" width="60px" /></li>';
+                    }
+                }
+                if (data > 4) {
+                    for (var i = 0; i < 4; i++) {
+                        document.getElementById('avtlist').innerHTML += '<li><img src="./static/images/' + listanimal[Math.floor(Math.random() * listanimal.length)] + '.png" height="60px" width="60px" /></li>';
+                    }
+                    document.getElementById('avtlist').innerHTML += '<strong style="padding-left:10px;font-size:20px">' + '   +' + (data - 4) + '</strong>';
+                }
+            });
+
+            function change_mode(sign) {
+                if (sign == true) {
+                    document.getElementById('darmode').innerHTML = 'LightMode';
+                    document.getElementById('darmode').onclick = function () {
+                        change_mode(false);
+                    };
+                    document.body.style.backgroundColor = 'black';
+                    document.body.style.color = 'white';
+
+                }else{
+                    document.getElementById('darmode').innerHTML = 'DarkMode';
+                    document.getElementById('darmode').onclick = function () {
+                        change_mode(true);
+                    };
+                    document.body.style.backgroundColor = 'white';
+                    document.body.style.color = 'black';
                 }
             }
-            if (data > 4) {
-                for (var i = 0; i < 4; i++) {
-                    document.getElementById('avtlist').innerHTML += '<li><img src="./static/images/' + listanimal[Math.floor(Math.random() * listanimal.length)] + '.png" height="60px" width="60px" /></li>';
-                }
-                document.getElementById('avtlist').innerHTML += '<strong style="padding-left:10px;font-size:20px">' + '   +' + (data - 4) + '</strong>';
+
+            function signOut() {
+                localStorage.removeItem('name');
+                localStorage.removeItem('picture');
+                document.cookie = "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.href = "/login";
             }
-        });
-
-        function signOut() {
-            localStorage.removeItem('name');
-            localStorage.removeItem('picture');
-            document.cookie = "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.href = "/login";
-        }
-
-    </script>
+        </script>
 </body>
 
 </html>
