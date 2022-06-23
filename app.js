@@ -23,6 +23,6 @@ io.on('connection', (socket) => {
     io.emit('count', io.engine.clientsCount);
 });
 
-server.listen(3000 || process.env.PORT, () => {
-    console.log('listening on PORT:'+ '3000' || process.env.PORT);
+server.listen(process.env.PORT, () => {
+    console.log('listening on PORT:'+ process.env.PORT);
 });
