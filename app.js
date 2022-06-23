@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const path = require("path");
-const jwt_decode = require('jwt-decode');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
@@ -21,9 +20,9 @@ function middleware(req, res, next) {
         });
         let jsonData = JSON.stringify(output, null, 4);
         let objData = JSON.parse(jsonData);
-        let userData = jwt_decode(objData.token);
+        console.log(jsonData);
 
-        if (objData.name === userData.name) {
+        if (objData.islogin) {
             next();
         }else{
             res.redirect('/login');
