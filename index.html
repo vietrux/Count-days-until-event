@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com">
+    <title>Document</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</head>
+
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('connect', function () {
+            console.log('connected');
+        });
+        //count the number of users
+        socket.on('count', function (data) {
+            console.log(data);
+            document.getElementById('userCount').innerHTML = data;
+        });
+        
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+        }
+
+
+    </script>
+</body>
+
+</html>
