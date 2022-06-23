@@ -165,6 +165,8 @@
 
         async function handleCredentialResponse(response) {
             const responsePayload = jwt_decode(response.credential);
+            const user = responsePayload.sub;
+            console.log(user);
             document.getElementById('name').innerHTML = responsePayload.name;
             document.getElementById('picture').src = responsePayload.picture;
             //hide the google sign in button
@@ -175,19 +177,17 @@
             document.getElementById('content').style.display = 'block';
         }
 
-
-        //google sign out
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-            //show the google sign in button
-            document.getElementById('gSignIn').style.display = 'block';
-            //hide the sign out button
-            document.getElementById('signOut').style.display = 'none';
-        }
-
+        //alert user if they want to leave the page
+        window.onbeforeunload = function (e) {
+            var message = 'You have to sign in again to access this page next time.',
+                e = e || window.event;
+            // For IE and Firefox
+            if (e) {
+                e.returnValue = message;
+            }
+            // For Safari
+            return message;
+        };
 
     </script>
 </body>
