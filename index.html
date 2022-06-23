@@ -198,18 +198,6 @@
             document.getElementById('content').style.display = 'none';
         }
 
-        //alert user if they want to leave the page
-        window.onbeforeunload = function (e) {
-            var message = 'You have to sign in again to access this page next time.',
-                e = e || window.event;
-            // For IE and Firefox
-            if (e) {
-                e.returnValue = message;
-            }
-            // For Safari
-            return message;
-        };
-
     </script>
 </body>
 
