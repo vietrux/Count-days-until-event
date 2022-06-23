@@ -11,15 +11,15 @@ const io = new Server(server);
 app.use('/static',express.static(path.join(__dirname, 'public')));
 
 function middleware(req, res, next) {
-    //check cookie for user
-    if (Cookies.get('islogin') == 'true') {
+    if (Cookies.get('islogin')) {
         next();
     } else {
+        console.log(Cookies.get('islogin'));
         res.redirect('/login');
     }
 }
 
-app.get('/app',middleware,(req, res) => {
+app.get('/',middleware,(req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 app.get('/login',(req, res) => {
