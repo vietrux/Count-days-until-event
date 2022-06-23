@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+var path = require("path");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 // const auth = require('./auth');
+
+//setup public folder
+app.use('/static',express.static(path.join(__dirname, 'public')));
 
 app.get('/',(req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -19,6 +23,6 @@ io.on('connection', (socket) => {
     io.emit('count', io.engine.clientsCount);
 });
 
-server.listen(process.env.PORT, () => {
-    console.log('listening on *:3000');
+server.listen(3000, () => {
+    console.log('listening on PORT:'+process.env.PORT);
 });
