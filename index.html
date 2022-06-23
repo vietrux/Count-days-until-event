@@ -116,10 +116,16 @@
         listanimal = ['Alligator', 'Anteater', 'Armadillo', 'Auroch', 'Axolotl', 'Badger', 'Bat', 'Beaver', 'Buffalo', 'Camel', 'Capybara', 'Chameleon', 'Cheetah', 'Chinchilla', 'Chipmunk', 'Chupacabra', 'Cormorant', 'Coyote', 'Crow', 'Dingo', 'Dinosaur', 'Dolphin', 'Duck', 'Elephant', 'Ferret', 'Fox', 'Frog', 'Giraffe', 'Gopher', 'Grizzly', 'Hedgehog', 'Hippo', 'Hyena', 'Ibex', 'Ifrit', 'Iguana', 'Jackal', 'Kangaroo', 'Koala', 'Kraken', 'Lemur', 'Leopard', 'Liger', 'Llama', 'Manatee', 'Mink', 'Monkey', 'Moose', 'Narwhal', 'Orangutan', 'Otter', 'Panda', 'Penguin', 'Platypus', 'Pumpkin', 'Python', 'Quagga', 'Rabbit', 'Raccoon', 'Rhino', 'Sheep', 'Shrew', 'Skunk', 'Squirrel', 'Tiger', 'Turtle', 'Walrus', 'Wolf', 'Wolverine', 'Wombat'];
         document.getElementById('signOut').style.display = 'none';
 
+        //check local storage if not null then show content
+        if (localStorage.getItem('token') != null) {
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('gSignIn').style.display = 'none';
+            document.getElementById('name').innerHTML = localStorage.getItem('name');
+            document.getElementById('picture').src = localStorage.getItem('picture');
+        }
+
         //count number of day from now to 7/7/2022
         var countDownDate = new Date("Jul 07, 2022 00:00:00").getTime();
-
-
         var x = setInterval(function () {
             var now = new Date().getTime();
             var distance = countDownDate - now;
@@ -165,8 +171,8 @@
 
         async function handleCredentialResponse(response) {
             const responsePayload = jwt_decode(response.credential);
-            const user = responsePayload.sub;
-            console.log(user);
+            localStorage.setItem('name', responsePayload.name);
+            localStorage.setItem('picture', responsePayload.picture);
             document.getElementById('name').innerHTML = responsePayload.name;
             document.getElementById('picture').src = responsePayload.picture;
             //hide the google sign in button
@@ -175,6 +181,17 @@
             document.getElementById('signOut').style.display = 'block';
             //show the content
             document.getElementById('content').style.display = 'block';
+        }
+
+        function signOut() {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userPicture');
+            //show the google sign in button
+            document.getElementById('gSignIn').style.display = 'block';
+            //hide the sign out button
+            document.getElementById('signOut').style.display = 'none';
+            //hide the content
+            document.getElementById('content').style.display = 'none';
         }
 
         //alert user if they want to leave the page
