@@ -117,7 +117,7 @@
         document.getElementById('signOut').style.display = 'none';
 
         //check local storage if not null then show content
-        if (localStorage.getItem('token') != null) {
+        if (localStorage != null) {
             document.getElementById('content').style.display = 'block';
             document.getElementById('gSignIn').style.display = 'none';
             document.getElementById('name').innerHTML = localStorage.getItem('name');
