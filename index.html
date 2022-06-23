@@ -118,6 +118,9 @@
 
         //check local storage if not null then show content
         if (localStorage.getItem('name')) {
+            socket.on('connect', function () {
+                console.log('connected');
+            });
             document.getElementById('content').style.display = 'block';
             document.getElementById('gSignIn').style.display = 'none';
             document.getElementById('name').innerHTML = localStorage.getItem('name');
@@ -145,9 +148,6 @@
         }, 1000);
 
         //socket
-        socket.on('connect', function () {
-            console.log('connected');
-        });
         socket.on('count', function (data) {
             document.getElementById('avtlist').innerHTML = "";
             data = data - 1;
@@ -174,6 +174,9 @@
             const responsePayload = jwt_decode(response.credential);
             localStorage.setItem('name', responsePayload.name);
             localStorage.setItem('picture', responsePayload.picture);
+            socket.on('connect', function () {
+                console.log('connected');
+            });
             document.getElementById('name').innerHTML = responsePayload.name;
             document.getElementById('picture').src = responsePayload.picture;
             //hide the google sign in button
