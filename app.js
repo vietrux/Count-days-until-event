@@ -19,13 +19,13 @@ function middleware(req, res, next) {
     }
 }
 
-app.get('/',middleware,(req, res) => {
+app.get('/app',middleware,(req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
-app.get('/login',middleware,(req, res) => {
+app.get('/login',(req, res) => {
     res.sendFile(__dirname + '/login.html');
 });
-app.get('*',middleware,(req, res) => {
+app.get('*',(req, res) => {
     res.sendFile(__dirname + '/404.html');
 });
 
