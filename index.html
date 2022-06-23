@@ -10,6 +10,7 @@
 
     <title>Document</title>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
     <!-- bootstrap 5 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -163,7 +164,7 @@
         });
 
         function handleCredentialResponse(response) {
-            const responsePayload = decodeJwtResponse(response.credential);
+            const responsePayload = jwtDecode(response.credential);
 
             console.log("ID: " + responsePayload.sub);
             console.log('Full Name: ' + responsePayload.name);
