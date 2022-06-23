@@ -73,10 +73,9 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="gSignIn">
         <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com" data-callback="handleCredentialResponse">
-        </div>
+        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
     <div id="content">
@@ -167,7 +166,7 @@
 
 
         //google sign in
-        function onSignIn(googleUser) {
+        function handleCredentialResponse(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log('Name: ' + profile.getName());
             console.log('Image URL: ' + profile.getImageUrl());
