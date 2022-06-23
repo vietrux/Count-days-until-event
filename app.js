@@ -19,7 +19,7 @@ function middleware(req, res, next) {
             output[pair[0]] = pair.splice(1).join('=');
         });
         let jsonData = JSON.stringify(output, null, 4);
-        console.log(jsonData);
+        console.log(jsonData.islogin);
         if (jsonData.islogin) {
             next();
         }else{
