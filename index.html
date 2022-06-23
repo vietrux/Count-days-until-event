@@ -76,10 +76,14 @@
                 <div class="col-md-12">
                     <h1>Hello, <span id="name"></span>!</h1>
                     <img id="picture" class="profile-pic" src="" alt="">
-                    <strong><span style="font-size: 32px;" id="days"></span> &nbsp;D &nbsp; &nbsp;<span
-                        style="font-size: 32px;" id="hours"></span> &nbsp;H &nbsp; &nbsp;<span
-                        style="font-size: 32px;" id="minutes"></span> &nbsp;M &nbsp; &nbsp;<span
-                        style="font-size: 32px;" id="seconds"></span> &nbsp;S</strong>
+                    <p style="font-size: 32px;">
+                        <strong>
+                            <span id="days"></span> &nbsp;D &nbsp; &nbsp;
+                            <span id="hours"></span> &nbsp;H &nbsp;&nbsp;
+                            <span id="minutes"></span> &nbsp;M &nbsp; &nbsp;
+                            <span id="seconds"></span>&nbsp;S
+                        </strong>
+                    </p>
                     <p style="font-size: 20px;">
                         I’m sure you can do it! Don’t give up!
                     </p>
@@ -120,10 +124,10 @@
             document.getElementById('name').innerHTML = localStorage.getItem('name');
             document.getElementById('picture').src = localStorage.getItem('picture');
 
-            if (localStorage.getItem('mode') == 'dark'){
+            if (localStorage.getItem('mode') == 'dark') {
                 change_mode(true)
             }
-            if (localStorage.getItem('mode') == 'light'){
+            if (localStorage.getItem('mode') == 'light') {
                 change_mode(false)
             }
             //count number of day from now to 7/7/2022
@@ -177,7 +181,7 @@
                     document.body.style.backgroundColor = 'black';
                     document.body.style.color = 'white';
                     localStorage.setItem('mode', 'dark');
-                }else{
+                } else {
                     document.getElementById('darmode').innerHTML = 'DarkMode';
                     document.getElementById('darmode').onclick = function () {
                         change_mode(true);
