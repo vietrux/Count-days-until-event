@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com">
+    <meta property="og:image" content="https://lofi.trug.cf/images/card.jpg">
+    <title>From 12A with love</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body style="text-align:center">
+    <h1>LOGIN</h1>
+    <div class="container" id="gSignIn">
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse"></div>
+        <div class="g_id_signin" data-type="standard"></div>
+    </div>
+    <script>
+        async function handleCredentialResponse(response) {
+            const responsePayload = jwt_decode(response.credential);
+            localStorage.setItem('name', responsePayload.name);
+            localStorage.setItem('picture', responsePayload.picture);
+            document.cookie = "islogin=true";
+            window.location.href = "/";
+        }
+    </script>
+</body>
+
+</html>

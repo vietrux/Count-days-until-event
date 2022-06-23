@@ -19,10 +19,6 @@
             margin-top: 50px;
         }
 
-        #content {
-            display: none;
-        }
-
         .profile-pic {
             width: 100px;
             height: 100px;
@@ -74,12 +70,6 @@
 </head>
 
 <body>
-    <div class="container" id="gSignIn">
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com"
-            data-callback="handleCredentialResponse"></div>
-        <div class="g_id_signin" data-type="standard"></div>
-    </div>
     <div id="content">
         <div class="container">
             <div class="row">
@@ -114,19 +104,12 @@
     <script>
         var socket = io();
         listanimal = ['Alligator', 'Anteater', 'Armadillo', 'Auroch', 'Axolotl', 'Badger', 'Bat', 'Beaver', 'Buffalo', 'Camel', 'Capybara', 'Chameleon', 'Cheetah', 'Chinchilla', 'Chipmunk', 'Chupacabra', 'Cormorant', 'Coyote', 'Crow', 'Dingo', 'Dinosaur', 'Dolphin', 'Duck', 'Elephant', 'Ferret', 'Fox', 'Frog', 'Giraffe', 'Gopher', 'Grizzly', 'Hedgehog', 'Hippo', 'Hyena', 'Ibex', 'Ifrit', 'Iguana', 'Jackal', 'Kangaroo', 'Koala', 'Kraken', 'Lemur', 'Leopard', 'Liger', 'Llama', 'Manatee', 'Mink', 'Monkey', 'Moose', 'Narwhal', 'Orangutan', 'Otter', 'Panda', 'Penguin', 'Platypus', 'Pumpkin', 'Python', 'Quagga', 'Rabbit', 'Raccoon', 'Rhino', 'Sheep', 'Shrew', 'Skunk', 'Squirrel', 'Tiger', 'Turtle', 'Walrus', 'Wolf', 'Wolverine', 'Wombat'];
-        document.getElementById('signOut').style.display = 'none';
 
-        //check local storage if not null then show content
-        if (localStorage.getItem('name')) {
-            socket.on('connect', function () {
-                console.log('connected');
-            });
-            document.getElementById('content').style.display = 'block';
-            document.getElementById('gSignIn').style.display = 'none';
-            document.getElementById('name').innerHTML = localStorage.getItem('name');
-            document.getElementById('picture').src = localStorage.getItem('picture');
-            document.getElementById('signOut').style.display = 'block';
-        }
+        socket.on('connect', function () {
+            console.log('connected');
+        });
+        document.getElementById('name').innerHTML = localStorage.getItem('name');
+        document.getElementById('picture').src = localStorage.getItem('picture');
 
         //count number of day from now to 7/7/2022
         var countDownDate = new Date("Jul 07, 2022 00:00:00").getTime();
@@ -170,35 +153,10 @@
             }
         });
 
-        async function handleCredentialResponse(response) {
-            const responsePayload = jwt_decode(response.credential);
-            localStorage.setItem('name', responsePayload.name);
-            localStorage.setItem('picture', responsePayload.picture);
-            socket.on('connect', function () {
-                console.log('connected');
-            });
-            document.getElementById('name').innerHTML = responsePayload.name;
-            document.getElementById('picture').src = responsePayload.picture;
-            //hide the google sign in button
-            document.getElementById('gSignIn').style.display = 'none';
-            //show the sign out button
-            document.getElementById('signOut').style.display = 'block';
-            //show the content
-            document.getElementById('content').style.display = 'block';
-            //set local storage
-            localStorage.setItem('ok', true);
-        }
-
         function signOut() {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('userPicture');
-            localStorage.removeItem('ok');
-            //show the google sign in button
-            document.getElementById('gSignIn').style.display = 'block';
-            //hide the sign out button
-            document.getElementById('signOut').style.display = 'none';
-            //hide the content
-            document.getElementById('content').style.display = 'none';
+            localStorage.removeItem('name');
+            localStorage.removeItem('picture');
+            window.location.href = "/login";
         }
 
     </script>

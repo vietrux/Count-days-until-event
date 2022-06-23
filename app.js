@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-var path = require("path");
+const path = require("path");
+const Cookies = require('js-cookie');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
@@ -9,8 +10,23 @@ const io = new Server(server);
 //setup public folder
 app.use('/static',express.static(path.join(__dirname, 'public')));
 
-app.get('/',(req, res) => {
+function middleware(req, res, next) {
+    //check cookie for user
+    if (Cookies.get('islogin') == 'true') {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
+app.get('/',middleware,(req, res) => {
     res.sendFile(__dirname + '/index.html');
+});
+app.get('/login',middleware,(req, res) => {
+    res.sendFile(__dirname + '/login.html');
+});
+app.get('*',middleware,(req, res) => {
+    res.sendFile(__dirname + '/404.html');
 });
 
 io.on('connection', (socket) => {
