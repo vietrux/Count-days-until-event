@@ -117,7 +117,7 @@
         document.getElementById('signOut').style.display = 'none';
 
         //check local storage if not null then show content
-        if (localStorage.getItem("ok") != null || localStorage.getItem("ok") != undefined || localStorage.getItem("ok") != "" || localStorage.getItem("ok") != "undefined" || localStorage.getItem("ok") != "null" || localStorage.getItem("ok") == "true") {
+        if (localStorage.getItem('name')) {
             document.getElementById('content').style.display = 'block';
             document.getElementById('gSignIn').style.display = 'none';
             document.getElementById('name').innerHTML = localStorage.getItem('name');
