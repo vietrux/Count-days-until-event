@@ -18,7 +18,7 @@
             margin-top: 50px;
         }
 
-        .content {
+        #content {
             display: none;
         }
 
@@ -75,7 +75,8 @@
 <body>
     <div class="container" id="gSignIn">
         <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
+        <div id="g_id_onload" data-client_id="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse"></div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
     <div id="content">
@@ -107,9 +108,6 @@
             </div>
         </div>
     </div>
-    <script>
-
-    </script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -164,12 +162,15 @@
             }
         });
 
+        function handleCredentialResponse(response) {
+            const responsePayload = decodeJwtResponse(response.credential);
 
-        //google sign in
-        function handleCredentialResponse(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
+            console.log("ID: " + responsePayload.sub);
+            console.log('Full Name: ' + responsePayload.name);
+            console.log('Given Name: ' + responsePayload.given_name);
+            console.log('Family Name: ' + responsePayload.family_name);
+            console.log("Image URL: " + responsePayload.picture);
+            console.log("Email: " + responsePayload.email);
             //hide the google sign in button
             document.getElementById('gSignIn').style.display = 'none';
             //show the sign out button
@@ -177,6 +178,7 @@
             //show the content
             document.getElementById('content').style.display = 'block';
         }
+
 
         //google sign out
         function signOut() {
