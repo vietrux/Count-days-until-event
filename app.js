@@ -20,7 +20,7 @@ function middleware(req, res, next) {
         });
         let jsonData = JSON.stringify(output, null, 4);
         console.log(jsonData);
-        if (jsonData.token) {
+        if (jsonData.islogin) {
             next();
         }else{
             res.redirect('/login');
