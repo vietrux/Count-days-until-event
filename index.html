@@ -13,11 +13,17 @@
 </head>
 
 <body>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div id="gSignIn" class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a id="signOut" href="#" onclick="signOut();">Sign out</a>
+    <script>
+
+    </script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
+        document.getElementById('signOut').style.display = 'none';
+
         socket.on('connect', function () {
             console.log('connected');
         });
@@ -26,11 +32,28 @@
             console.log(data);
             document.getElementById('userCount').innerHTML = data;
         });
-        
+
+
+        //google sign in
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log('Name: ' + profile.getName());
             console.log('Image URL: ' + profile.getImageUrl());
+            //hide the google sign in button
+            document.getElementById('gSignIn').style.display = 'none';
+            //show the sign out button
+            document.getElementById('signOut').style.display = 'block';
+        }
+        //google sign out
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+            //show the google sign in button
+            document.getElementById('gSignIn').style.display = 'block';
+            //hide the sign out button
+            document.getElementById('signOut').style.display = 'none';
         }
 
 
