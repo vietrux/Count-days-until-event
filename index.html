@@ -84,7 +84,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Hello, <span id="name">Trung</span>!</h1>
+                    <h1>Hello, <span id="name"></span>!</h1>
                     <img id="picture" class="profile-pic" src="https://profile.trug.cf/img/avt.jpg" alt="">
                     <p style="font-size: 20px;">
                         There are <strong><span style="font-size: 32px;" id="days"></span> &nbsp;DAY &nbsp;- &nbsp;<span
@@ -163,15 +163,10 @@
             }
         });
 
-        function handleCredentialResponse(response) {
+        async function handleCredentialResponse(response) {
             const responsePayload = jwt_decode(response.credential);
-
-            console.log("ID: " + responsePayload.sub);
-            console.log('Full Name: ' + responsePayload.name);
-            console.log('Given Name: ' + responsePayload.given_name);
-            console.log('Family Name: ' + responsePayload.family_name);
-            console.log("Image URL: " + responsePayload.picture);
-            console.log("Email: " + responsePayload.email);
+            document.getElementById('name').innerHTML = responsePayload.name;
+            document.getElementById('picture').src = responsePayload.picture;
             //hide the google sign in button
             document.getElementById('gSignIn').style.display = 'none';
             //show the sign out button
