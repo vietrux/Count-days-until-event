@@ -30,6 +30,22 @@
         <div class="g_id_signin" data-type="standard"></div>
     </div>
     <script>
+        //check cookie
+        //get cookie
+        let cookie = document.cookie;
+        if (cookie) {
+            let output = {};
+            cookie.split(/\s*;\s*/).forEach(function (pair) {
+                pair = pair.split(/\s*=\s*/);
+                output[pair[0]] = pair.splice(1).join('=');
+            });
+            let jsonData = JSON.stringify(output, null, 4);
+            let objData = JSON.parse(jsonData);
+            console.log(objData);
+            if (objData.islogin) {
+                window.location.href = "/";
+            }
+        }
         async function handleCredentialResponse(response) {
             const responsePayload = jwt_decode(response.credential);
             localStorage.setItem('name', responsePayload.name);
