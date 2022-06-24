@@ -24,7 +24,7 @@ function middleware(req, res, next) {
         let objData = JSON.parse(JSON.stringify(output, null, 4));
         if (objData.islogin) {
             next();
-        }else{
+        } else {
             res.redirect('/login');
         }
     } else {
@@ -50,29 +50,27 @@ app.get('*', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-//    get header cookie
+    //    get header cookie
     let cookie = socket.handshake.headers.cookie;
-    if (cookie) {
-        let output = {};
-        cookie.split(/\s*;\s*/).forEach(function (pair) {
-            pair = pair.split(/\s*=\s*/);
-            output[pair[0]] = pair.splice(1).join('=');
-        });
-        let objData = JSON.parse(JSON.stringify(output, null, 4));
-        //add user to online
-        useronl[objData.email] = socket.id;
-        console.log(useronl);
-    }
+    let output = {};
+    cookie.split(/\s*;\s*/).forEach(function (pair) {
+        pair = pair.split(/\s*=\s*/);
+        output[pair[0]] = pair.splice(1).join('=');
+    });
+    let objData = JSON.parse(JSON.stringify(output, null, 4));
+    //add user to online
+    useronl[objData.email] = [];
+    useronl[objData.email].push(socket.id);
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
-        io.emit('count', Object.keys(useronl).length);
-        //remove user from online
-        for (let key in useronl) {
-            if (useronl[key] === socket.id) {
-                delete useronl[key];
-            }
+        console.log(socket.id);
+        useronl[objData.email].splice(arr.indexOf(socket.id), 1);
+        //if array empty, delete user
+        if (useronl[objData.email].length == 0) {
+            delete useronl[objData.email];
         }
+        io.emit('count', Object.keys(useronl).length);
     });
     io.emit('count', Object.keys(useronl).length);
 });
