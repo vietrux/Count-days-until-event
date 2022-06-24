@@ -53,28 +53,30 @@ io.on('connection', (socket) => {
     console.log(socket.id);
     //    get header cookie
     let cookie = socket.handshake.headers.cookie;
-    let output = {};
-    cookie.split(/\s*;\s*/).forEach(function (pair) {
-        pair = pair.split(/\s*=\s*/);
-        output[pair[0]] = pair.splice(1).join('=');
-    });
-    let objData = JSON.parse(JSON.stringify(output, null, 4));
-    //add user to online
-    useronl[objData.email] = [];
-    useronl[objData.email].push(socket.id);
-    console.log(useronl);
-    socket.on('disconnect', () => {
-        console.log('a user disconnected');
-        console.log(socket.id);
-        useronl[objData.email].splice(useronl[objData.email].indexOf(socket.id), 1);
-        //if array empty, delete user
-        if (useronl[objData.email].length == 0) {
-            delete useronl[objData.email];
-        }
+    if (cookie) {
+        let output = {};
+        cookie.split(/\s*;\s*/).forEach(function (pair) {
+            pair = pair.split(/\s*=\s*/);
+            output[pair[0]] = pair.splice(1).join('=');
+        });
+        let objData = JSON.parse(JSON.stringify(output, null, 4));
+        //add user to online
+        useronl[objData.email] = [];
+        useronl[objData.email].push(socket.id);
         console.log(useronl);
+        socket.on('disconnect', () => {
+            console.log('a user disconnected');
+            console.log(socket.id);
+            useronl[objData.email].splice(useronl[objData.email].indexOf(socket.id), 1);
+            //if array empty, delete user
+            if (useronl[objData.email].length == 0) {
+                delete useronl[objData.email];
+            }
+            console.log(useronl);
+            io.emit('count', Object.keys(useronl).length);
+        });
         io.emit('count', Object.keys(useronl).length);
-    });
-    io.emit('count', Object.keys(useronl).length);
+    }
 });
 
 if (process.env.PORT === undefined) {
