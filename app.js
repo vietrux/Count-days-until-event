@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
             console.log('a user disconnected');
             console.log(socket.id);
             useronl[objData.email].splice(useronl[objData.email].indexOf(socket.id), 1);
-            //if array empty, delete user
+            //if array empty, delete user r
             if (useronl[objData.email].length == 0) {
                 delete useronl[objData.email];
             }
