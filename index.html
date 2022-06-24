@@ -79,7 +79,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Hello, <span id="name"></span>!</h1>
-                    <img id="picture" class="profile-pic" src="" alt="">
+                    <div>
+                        <img id="picture" class="profile-pic" src="" alt="">
+                        <span id="clock" style="padding-left: 40px;font-size: 22px;"></span>
+                    </div>
                     <p class="timecounter">
                         <span id="days"></span> &nbsp;Days &nbsp;-
                         <span id="hours"></span> &nbsp;Hours &nbsp;-
@@ -150,6 +153,34 @@
                     document.getElementById("demo").innerHTML = "Good Luck! 12A ";
                 }
             }, 1000);
+
+            //create clock
+            setInterval(function () {
+                var clock = document.getElementById('clock');
+                var time = new Date();
+                var h = time.getHours();
+                var m = time.getMinutes();
+                var s = time.getSeconds();
+                var session = "AM";
+                if (h == 0) {
+                    h = 12;
+                } else if (h > 12) {
+                    h = h - 12;
+                    session = "PM";
+                }
+                if (h < 10) {
+                    h = "0" + h;
+                }
+                if (m < 10) {
+                    m = "0" + m;
+                }
+                if (s < 10) {
+                    s = "0" + s;
+                }
+                var time = h + ":" + m + ":" + s + " " + session;
+                clock.innerHTML = time;
+            }, 1000);
+
 
             //socket
             socket.on('count', function (data) {
