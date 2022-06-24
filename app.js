@@ -50,6 +50,7 @@ app.get('*', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+    console.log(socket.id);
     //    get header cookie
     let cookie = socket.handshake.headers.cookie;
     let output = {};
@@ -63,7 +64,7 @@ io.on('connection', (socket) => {
     useronl[objData.email].push(socket.id);
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('a user disconnected');
         console.log(socket.id);
         useronl[objData.email].splice(useronl[objData.email].indexOf(socket.id), 1);
         //if array empty, delete user
