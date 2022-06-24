@@ -188,9 +188,13 @@
                 data = data - 1;
                 console.log(data);
                 if (data < 1) {
-                    document.getElementById('userCount').innerHTML = 'There is only you!';
+                    document.getElementById('userCount').innerHTML = 'There is only you! But don\'t be sad, i\'m still here with you!<br>Fighting for your life!'';
                 } else {
-                    document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends online now!';
+                    if (data == 1) {
+                        document.getElementById('userCount').innerHTML = 'There are ' + data + ' friend here! Great, let\'s study together!';
+                    } else {
+                        document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends here! Great, let\'s study together!';
+                    }
                 }
                 if (data > 0 && data <= 4) {
                     for (var i = 0; i < data; i++) {
