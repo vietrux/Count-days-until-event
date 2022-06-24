@@ -62,6 +62,10 @@ io.on('connection', (socket) => {
         let objData = JSON.parse(JSON.stringify(output, null, 4));
         //add user to online
         useronl[objData.email] = [];
+        //check if useronl[objData.email] exist
+        if (!useronl[objData.email]) {
+            useronl[objData.email] = [];
+        }
         useronl[objData.email].push(socket.id);
         console.log(useronl);
         socket.on('disconnect', () => {
