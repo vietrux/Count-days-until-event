@@ -2,10 +2,12 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const path = require("path");
-const jwtDecode = require('jwt-decode');
+const enforce = require('express-sslify');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 //setup public folder
 app.use('/static', express.static(path.join(__dirname, 'public')));
