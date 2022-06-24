@@ -2,12 +2,15 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const path = require("path");
+const jwtDecode = require('jwt-decode');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
 //setup public folder
 app.use('/static', express.static(path.join(__dirname, 'public')));
+
+var useronl = {};
 
 function middleware(req, res, next) {
     //get cookie
@@ -18,10 +21,7 @@ function middleware(req, res, next) {
             pair = pair.split(/\s*=\s*/);
             output[pair[0]] = pair.splice(1).join('=');
         });
-        let jsonData = JSON.stringify(output, null, 4);
-        let objData = JSON.parse(jsonData);
-        console.log(jsonData);
-
+        let objData = JSON.parse(JSON.stringify(output, null, 4));
         if (objData.islogin) {
             next();
         }else{
@@ -50,11 +50,31 @@ app.get('*', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+//    get header cookie
+    let cookie = socket.handshake.headers.cookie;
+    if (cookie) {
+        let output = {};
+        cookie.split(/\s*;\s*/).forEach(function (pair) {
+            pair = pair.split(/\s*=\s*/);
+            output[pair[0]] = pair.splice(1).join('=');
+        });
+        let objData = JSON.parse(JSON.stringify(output, null, 4));
+        //add user to online
+        useronl[objData.email] = socket.id;
+        console.log(useronl);
+    }
+
     socket.on('disconnect', () => {
         console.log('user disconnected');
-        io.emit('count', io.engine.clientsCount);
+        io.emit('count', Object.keys(useronl).length);
+        //remove user from online
+        for (let key in useronl) {
+            if (useronl[key] === socket.id) {
+                delete useronl[key];
+            }
+        }
     });
-    io.emit('count', io.engine.clientsCount);
+    io.emit('count', Object.keys(useronl).length);
 });
 
 if (process.env.PORT === undefined) {

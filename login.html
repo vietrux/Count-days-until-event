@@ -55,6 +55,7 @@
             const responsePayload = jwt_decode(response.credential);
             localStorage.setItem('name', responsePayload.name);
             localStorage.setItem('picture', responsePayload.picture);
+            document.cookie = "email="+responsePayload.email+"; expires=Fri, 31 Dec 9999 23:59:59 GMT";
             document.cookie = "islogin=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
             window.location.href = "/";
         }

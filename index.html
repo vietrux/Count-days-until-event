@@ -84,10 +84,10 @@
                         <span id="clock" style="padding-left: 40px;font-size: 22px;"></span>
                     </div>
                     <p class="timecounter">
-                        <span id="days"></span> &nbsp;Days &nbsp;-
-                        <span id="hours"></span> &nbsp;Hours &nbsp;-
-                        <span id="minutes"></span> &nbsp;Minutes &nbsp;-
-                        <span id="seconds"></span>&nbsp;Seconds
+                        <span id="days"></span> &nbsp;Day(s) &nbsp;-
+                        <span id="hours"></span> &nbsp;Hour(s) &nbsp;-
+                        <span id="minutes"></span> &nbsp;Minute(s) &nbsp;-
+                        <span id="seconds"></span>&nbsp;Second(s)
                     </p>
                     <p style="font-size: 20px;">
                         I’m sure you can do it! Don’t give up!
@@ -188,13 +188,13 @@
                 data = data - 1;
                 console.log(data);
                 if (data < 1) {
-                    document.getElementById('userCount').innerHTML = 'There is only you! But don\'t be sad, i\'m still here with you!<br>Fighting for your life!'';
-                } else {
-                    if (data == 1) {
-                        document.getElementById('userCount').innerHTML = 'There are ' + data + ' friend here! Great, let\'s study together!';
-                    } else {
-                        document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends here! Great, let\'s study together!';
-                    }
+                    document.getElementById('userCount').innerHTML = "There is only you! But don't be sad, i'm still here with you!<br>Fighting for your life!";
+                }
+                if(data == 1){
+                    document.getElementById('userCount').innerHTML = 'There are ' + data + ' friend here! Great, let\'s study together!';
+                }
+                if (data > 1){
+                    document.getElementById('userCount').innerHTML = 'There are ' + data + ' friends here! Great, let\'s study together!';
                 }
                 if (data > 0 && data <= 4) {
                     for (var i = 0; i < data; i++) {
@@ -232,6 +232,7 @@
             function signOut() {
                 localStorage.removeItem('name');
                 localStorage.removeItem('picture');
+                document.cookie = "vtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 document.cookie = "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 window.location.href = "/login";
             }
