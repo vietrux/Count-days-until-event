@@ -9,7 +9,8 @@
         content="264065044642-67b7kk45dvgr1ammgis5gl9v8nkcorgn.apps.googleusercontent.com">
     <meta property="og:image" content="https://lofi.trug.cf/images/card.jpg">
     <title>From 12A with love</title>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
     <!-- bootstrap 5 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -53,6 +54,18 @@
             document.cookie = "islogin=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
             window.location.href = "/";
         }
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+
         if (localStorage.getItem('mode') == 'dark') {
             change_mode(true)
         }
