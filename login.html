@@ -37,6 +37,23 @@
             document.cookie = "islogin=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
             window.location.href = "/";
         }
+        if (localStorage.getItem('mode') == 'dark') {
+            change_mode(true)
+        }
+        if (localStorage.getItem('mode') == 'light') {
+            change_mode(false)
+        }
+        function change_mode(sign) {
+            if (sign == true) {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                localStorage.setItem('mode', 'dark');
+            } else {
+                document.body.style.backgroundColor = 'white';
+                document.body.style.color = 'black';
+                localStorage.setItem('mode', 'light');
+            }
+        }
     </script>
 </body>
 

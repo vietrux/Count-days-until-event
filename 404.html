@@ -21,8 +21,27 @@
     <div class="container" id="gSignIn">
         <h1>404</h1>
         <p>Page not found</p>
-        <a href="/" class="">Go to home</a>
+        <a href="/" class="btn btn-danger">Go to home</a>
     </div>
+    <script>
+        if (localStorage.getItem('mode') == 'dark') {
+            change_mode(true)
+        }
+        if (localStorage.getItem('mode') == 'light') {
+            change_mode(false)
+        }
+        function change_mode(sign) {
+            if (sign == true) {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                localStorage.setItem('mode', 'dark');
+            } else {
+                document.body.style.backgroundColor = 'white';
+                document.body.style.color = 'black';
+                localStorage.setItem('mode', 'light');
+            }
+        }
+    </script>
 </body>
 
 </html>
