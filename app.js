@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
     //add user to online
     useronl[objData.email] = [];
     useronl[objData.email].push(socket.id);
-
+    console.log(useronl);
     socket.on('disconnect', () => {
         console.log('a user disconnected');
         console.log(socket.id);
@@ -71,6 +71,7 @@ io.on('connection', (socket) => {
         if (useronl[objData.email].length == 0) {
             delete useronl[objData.email];
         }
+        console.log(useronl);
         io.emit('count', Object.keys(useronl).length);
     });
     io.emit('count', Object.keys(useronl).length);
