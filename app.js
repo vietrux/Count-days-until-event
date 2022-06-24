@@ -38,9 +38,15 @@ app.get('/', middleware, (req, res) => {
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/login.html');
 });
+app.get('/check', (req, res) => {
+    res.json({
+        message: 'OK'
+    });
+});
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/404.html');
 });
+
 
 io.on('connection', (socket) => {
     console.log('a user connected');
